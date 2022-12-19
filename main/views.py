@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse
-from .models import User, Student
+from .models import User, Student, Attendance
 from sqlite3 import IntegrityError
 
 # Create your views here.
@@ -81,10 +81,13 @@ def supervisor_login_view(request):
                 return HttpResponse("You have no accesss to supervisor portal")
 
             if user.is_supervisor:
-                return HttpResponse("Success")
+                return HttpResponseRedirect(reverse("supervisordash"))
         else:
             return HttpResponseRedirect(reverse("index"))
 
+def supervisor_dashboard(request):
+    if request.method == "GET":
+        return render(request, "main/supervisor/dashboard.html")
 
 def logout_view(request):
     logout(request)
@@ -105,9 +108,13 @@ def student_dashboard(request):
         })
 
 def student_attendance(request):
-    if request.method == "GET":
+    if request.method == "POST":
         data = Student.objects.get(pk=request.user.id)
-        pass
+        atte = Attendance(
+            student=data,
+            location= request.POST["url"]
+        )
+        return HttpResponse("Successfull")
 
 
 def student(request):

@@ -11,8 +11,8 @@ function geoFindMe() {
       const latitude  = position.coords.latitude;
       const longitude = position.coords.longitude;
 
-      // document.querySelector('#lon').value = longitude;
-      // document.querySelector('#lat').value = latitude;
+      document.querySelector('#lon').value = longitude;
+      document.querySelector('#lat').value = latitude;
       document.querySelector('#url').innerHTML = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
   
       status.textContent = '';
@@ -43,7 +43,3 @@ document.querySelector('#find-me').addEventListener('click', () => {
   geoFindMe();
 });
 
-
-function postData(){
-
-}
