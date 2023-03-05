@@ -190,7 +190,7 @@ def student(request):
         reg_num = request.POST["reg"]
 
         try:
-            student = Student.objects.create_user(
+            student = Student(
                 first_name = name,
                 last_name = last,
                 email = email,
