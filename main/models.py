@@ -3,10 +3,14 @@ from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 
 # Create your models here.
 
-class User(AbstractBaseUser):
+class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_supervisor = models.BooleanField(default=False)
     phone = models.CharField(max_length=255)
+
+    # USERNAME_FIELD = 'email'
+    # EMAIL_FIELD = 'email'
+    # REQUIRED_FIELDS = ['email']
 
 class Student(User):
     reg_num = models.CharField(max_length=255)
