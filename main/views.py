@@ -139,8 +139,12 @@ def logout_view(request):
 
 
 def dashboard(request):
+    spv = User.objects.filter(is_supervisor=true)
+    std = User.objects.filter(is_student=true)
     return render(request, 'main/admin/admin.html', {
-        "page": "dashboard"
+        "page": "dashboard",
+        "spv": len(spv),
+        "std": len(std)
     })
 
 def student_dashboard(request):
