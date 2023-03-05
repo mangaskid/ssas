@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse
-from .models import User, Student, Attendance
+from .models import User, Student, Attendance, SiwesReg
 from sqlite3 import IntegrityError
 
 # Create your views here.
@@ -87,7 +87,51 @@ def supervisor_login_view(request):
 
 def supervisor_dashboard(request):
     if request.method == "GET":
-        return render(request, "main/supervisor/dashboard.html")
+        siwes_students = SiwesReg.objects.filter(lecturer=request.user)
+        return render(request, "main/supervisor/dashboard.html", {
+            "students": siwes_students
+        })
+
+def supervisor_add_student(request):
+    if request.method == "GET":
+        siwes_students = Student.objects.filter(is_reg=False)
+        siwes_reg = SiwesReg.objects.all()
+        # std = Student.objects.all()
+        # for s in std:
+        #     s.is_reg = False
+        #     s.save()
+        return render(request, "main/supervisor/add-student.html", {
+            "students": siwes_students
+        })
+
+def supervisor_view_attendance(request, id):
+
+    if request.method == "GET":
+        student = Student.objects.get(pk=id)
+        attendance = Attendance.objects.filter(student=student)
+        return render(request, "main/supervisor/attendance.html", {"student": student, "attendance":attendance})
+
+def supervisor_connect_student(request, id):
+    if request.method == "GET":
+        lecturer = request.user
+        student = Student.objects.get(pk=id)
+        siwes_reg = SiwesReg(
+            lecturer=lecturer,
+            student=student
+        )
+        siwes_reg.save()
+        student.is_reg = True
+        student.save()
+        return HttpResponseRedirect(reverse("supervisordash"))
+
+def supervisor_delete_student(request, id):
+    if request.method == "GET":
+        siwes_reg = SiwesReg.objects.get(pk=id)
+        student = siwes_reg.student
+        student.is_reg = False
+        student.save()
+        siwes_reg.delete()
+        return HttpResponseRedirect(reverse("supervisordash"))
 
 def logout_view(request):
     logout(request)
@@ -102,10 +146,17 @@ def dashboard(request):
 def student_dashboard(request):
     if request.method == "GET":
         data = Student.objects.get(pk=request.user.id)
+        # attendance = Attendance.objects.filter(student=data)
+
         return render(request, "main/student/dashboard.html", {
-            "page": "students",
             "data": data
         })
+
+def student_view_attendance(request, id):
+    if request.method == "GET":
+        student = request.user
+        attendance = Attendance.objects.filter(student=student)
+        return render(request, "main/student/attendance.html", {"attendance":attendance})
 
 def student_attendance(request):
     if request.method == "POST":
@@ -114,8 +165,8 @@ def student_attendance(request):
             student=data,
             location= request.POST["url"]
         )
-        return HttpResponse("Successfull")
-
+        atte.save()
+        return HttpResponse("Successfull!")
 
 def student(request):
     if request.method == "GET":

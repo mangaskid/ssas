@@ -13,6 +13,7 @@ class Student(User):
     organization = models.CharField(max_length=255)
     level = models.CharField(max_length=255)
     location = models.CharField(max_length=255)
+    is_reg = models.BooleanField(default=False)
 
 class SiwesReg(models.Model):
     lecturer = models.ForeignKey(User, on_delete=models.CASCADE)

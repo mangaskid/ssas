@@ -1,6 +1,16 @@
 
+document.querySelector.addEventListener("DOMContentLoaded", () => {
+  alert("Hello World");
+})
+
+
 function geoFindMe() {
 
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
     const status = document.querySelector('#status');
     const mapLink = document.querySelector('#map-link');
   
@@ -34,7 +44,8 @@ function geoFindMe() {
       document.querySelector('#url').value = 'Geolocation is not supported by your browser';
     } else {
       status.textContent = 'Locating…';
-      navigator.geolocation.getCurrentPosition(success, error);
+      
+      navigator.geolocation.getCurrentPosition(success, error, options);
     }
   
 }
