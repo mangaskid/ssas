@@ -17,16 +17,16 @@ class User(AbstractUser):
     # EMAIL_FIELD = 'email'
     # REQUIRED_FIELDS = ['email']
 
-class Student(User):
-    reg_num = models.CharField(max_length=255)
-    organization = models.CharField(max_length=255)
-    level = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)
-    is_reg = models.BooleanField(default=False)
+# class Student(User):
+#     reg_num = models.CharField(max_length=255)
+#     organization = models.CharField(max_length=255)
+#     level = models.CharField(max_length=255)
+#     location = models.CharField(max_length=255)
+#     is_reg = models.BooleanField(default=False)
 
 class SiwesReg(models.Model):
     lecturer = models.ForeignKey(User, on_delete=models.CASCADE)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="student_reg")
+    student = models.ForeignKey(User, on_delete=models.CASCADE, related_name="student_reg")
     date = models.DateTimeField(auto_now=True)
 
 class Attendance(models.Model):
