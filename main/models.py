@@ -7,6 +7,11 @@ class User(AbstractUser):
     is_student = models.BooleanField(default=False)
     is_supervisor = models.BooleanField(default=False)
     phone = models.CharField(max_length=255)
+    reg_num = models.CharField(max_length=255, default="")
+    organization = models.CharField(max_length=255, default="")
+    level = models.CharField(max_length=255, default="")
+    location = models.CharField(max_length=255, default="")
+    is_reg = models.BooleanField(default=False)
 
     # USERNAME_FIELD = 'email'
     # EMAIL_FIELD = 'email'

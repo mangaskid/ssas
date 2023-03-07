@@ -94,7 +94,7 @@ def supervisor_dashboard(request):
 
 def supervisor_add_student(request):
     if request.method == "GET":
-        siwes_students = Student.objects.filter(is_reg=False)
+        siwes_students = User.objects.filter(is_reg=False)
         siwes_reg = SiwesReg.objects.all()
         # std = Student.objects.all()
         # for s in std:
@@ -107,14 +107,14 @@ def supervisor_add_student(request):
 def supervisor_view_attendance(request, id):
 
     if request.method == "GET":
-        student = Student.objects.get(pk=id)
+        student = User.objects.get(pk=id)
         attendance = Attendance.objects.filter(student=student)
         return render(request, "main/supervisor/attendance.html", {"student": student, "attendance":attendance})
 
 def supervisor_connect_student(request, id):
     if request.method == "GET":
         lecturer = request.user
-        student = Student.objects.get(pk=id)
+        student = User.objects.get(pk=id)
         siwes_reg = SiwesReg(
             lecturer=lecturer,
             student=student
@@ -149,7 +149,7 @@ def dashboard(request):
 
 def student_dashboard(request):
     if request.method == "GET":
-        data = Student.objects.get(pk=request.user.id)
+        data = User.objects.get(pk=request.user.id)
         # attendance = Attendance.objects.filter(student=data)
 
         return render(request, "main/student/dashboard.html", {
@@ -164,7 +164,7 @@ def student_view_attendance(request, id):
 
 def student_attendance(request):
     if request.method == "POST":
-        data = Student.objects.get(pk=request.user.id)
+        data = User.objects.get(pk=request.user.id)
         atte = Attendance(
             student=data,
             location= request.POST["url"]
@@ -190,7 +190,7 @@ def student(request):
         reg_num = request.POST["reg"]
 
         try:
-            student = Student(
+            student = User.objects.create_user(
                 first_name = name,
                 last_name = last,
                 email = email,
