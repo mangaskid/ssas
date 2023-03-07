@@ -94,7 +94,7 @@ def supervisor_dashboard(request):
 
 def supervisor_add_student(request):
     if request.method == "GET":
-        siwes_students = User.objects.filter(is_reg=False)
+        siwes_students = User.objects.filter(is_reg=False, is_student=True)
         siwes_reg = SiwesReg.objects.all()
         # std = Student.objects.all()
         # for s in std:
