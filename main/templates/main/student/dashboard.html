@@ -118,6 +118,12 @@
   
     mapLink.href = '';
     mapLink.textContent = '';
+
+    const options = {
+  enableHighAccuracy: true,
+  timeout: 5000,
+  maximumAge: 0,
+};
   
     function success(position) {
       const latitude  = position.coords.latitude;
@@ -148,7 +154,7 @@
       document.querySelector('#url').value = 'Geolocation is not supported by your browser';
     } else {
       status.textContent = 'Locating…';
-      navigator.geolocation.getCurrentPosition(success, error);
+      navigator.geolocation.getCurrentPosition(success, error, options);
     }
   
 }
