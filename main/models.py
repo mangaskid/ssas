@@ -32,4 +32,5 @@ class SiwesReg(models.Model):
 class Attendance(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
+    url = models.CharField(max_length=255)
     date = models.DateTimeField(auto_now=True)

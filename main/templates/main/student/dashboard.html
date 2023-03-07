@@ -60,6 +60,7 @@
                       <input name="lon" id="lon" type="hidden">
                       <input name="lat" id="lat" type="hidden">
                       <input name="url" id="url" type="hidden">
+                      <input name="gUrl" id="gUrl" type="hidden">
                       <button type="submit" class="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">Take Addendance</button>
                       
                       <!-- <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Later</button> -->
@@ -125,6 +126,8 @@
       document.querySelector('#lon').value = longitude;
       document.querySelector('#lat').value = latitude;
       document.querySelector('#url').value = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
+      document.querySelector('#gUrl').value = `http://maps.google.com/maps?q=${latitude},${longitude}`;
+
   
       status.textContent = '';
       mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;

@@ -167,7 +167,8 @@ def student_attendance(request):
         data = User.objects.get(pk=request.user.id)
         atte = Attendance(
             student=data,
-            location= request.POST["url"]
+            location= request.POST["url"],
+            url = request.POST["gUrl"]
         )
         atte.save()
         return HttpResponse("Successfull!")
