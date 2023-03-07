@@ -94,11 +94,11 @@ def supervisor_dashboard(request):
 
 def supervisor_add_student(request):
     if request.method == "GET":
-        siwes_students = User.objects.filter(is_regg=False)
+        siwes_students = User.objects.filter(is_reg=False)
         siwes_reg = SiwesReg.objects.all()
         # std = Student.objects.all()
         # for s in std:
-        #     s.is_regg = False
+        #     s.is_reg = False
         #     s.save()
         return render(request, "main/supervisor/add-student.html", {
             "students": siwes_students
@@ -120,7 +120,7 @@ def supervisor_connect_student(request, id):
             student=student
         )
         siwes_reg.save()
-        student.is_regg = True
+        student.is_reg = True
         student.save()
         return HttpResponseRedirect(reverse("supervisordash"))
 
@@ -128,7 +128,7 @@ def supervisor_delete_student(request, id):
     if request.method == "GET":
         siwes_reg = SiwesReg.objects.get(pk=id)
         student = siwes_reg.student
-        student.is_regg = False
+        student.is_reg = False
         student.save()
         siwes_reg.delete()
         return HttpResponseRedirect(reverse("supervisordash"))
