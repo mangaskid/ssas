@@ -4,6 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse
 from .models import User, Attendance, SiwesReg
 from sqlite3 import IntegrityError
+from datetime import date
 
 # Create your views here.
 def index(request):
@@ -175,6 +176,13 @@ def student_view_attendance(request, id):
 def student_attendance(request):
     if request.method == "POST":
         data = User.objects.get(pk=request.user.id)
+        last = Attendance.objects.filter(student=data).last()
+        
+        today = date.today().day
+
+        if (last.date.day == today):
+            return HttpResponse("You can't take attendance twice in a day!")
+
         atte = Attendance(
             student=data,
             location= request.POST["url"],
