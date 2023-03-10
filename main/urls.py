@@ -17,6 +17,7 @@ urlpatterns = [
     path("supervisor-dashboard/add-student/connect/<int:id>", views.supervisor_connect_student, name="connect"),
     path("supervisor-dashboard/add-student/delete/<int:id>", views.supervisor_delete_student, name="delete"),
     path("supervisor/view-attendance/<int:id>", views.supervisor_view_attendance, name="viewattendance"),
+    path("supervisor/view-attendance/conf/<int:id>/<int:std>", views.supervisor_conf_attendance, name="atte_conf"),
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout")
 ]

@@ -111,6 +111,16 @@ def supervisor_view_attendance(request, id):
         attendance = Attendance.objects.filter(student=student)
         return render(request, "main/supervisor/attendance.html", {"student": student, "attendance":attendance})
 
+def supervisor_conf_attendance(request, id, std):
+
+    if request.method == "GET":
+        attendance = Attendance.objects.get(pk=id)
+        attendance.is_confirm = True
+        attendance.save()
+
+        return HttpResponseRedirect(reverse("viewattendance", args=[std,]))
+
+
 def supervisor_connect_student(request, id):
     if request.method == "GET":
         lecturer = request.user

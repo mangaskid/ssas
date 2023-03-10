@@ -33,4 +33,5 @@ class Attendance(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     location = models.CharField(max_length=255)
     url = models.CharField(max_length=255)
+    is_confirm = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now=True)
