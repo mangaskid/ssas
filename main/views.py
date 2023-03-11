@@ -180,8 +180,9 @@ def student_attendance(request):
         
         today = date.today().day
 
-        if (last.date.day == today):
-            return HttpResponse("You can't take attendance twice in a day!")
+        if last is not None:
+            if (last.date.day == today):
+                return HttpResponse("You can't take attendance twice in a day!")
 
         atte = Attendance(
             student=data,
